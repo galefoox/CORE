@@ -1,0 +1,4 @@
+talk about spherical coordinates
+and how they work
+what is a function
+what is python
