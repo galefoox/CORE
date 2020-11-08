@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import matplotlib.image as mpimg
 
 Acc_11 = [1, 2, 3, 4, 6, 7]
 Acc_12 = [2, 2, 2, 2, 2, 2]
@@ -10,6 +11,7 @@ fig = plt.figure(figsize=(5, 5))
 axes = fig.add_subplot(111)
 axes.set_xlim(min(Acc_11), max(Acc_11))
 axes.set_ylim(min(Acc_12), max(Acc_12))
+
 
 point, = axes.plot([Acc_11[0]], [Acc_12[0]], 'go')
 
@@ -25,5 +27,8 @@ def frames():
 
 
 ani = FuncAnimation(fig, ani, frames=frames, interval=1000)
+img = mpimg.imread('https://i.imgur.com/XR1J92C.png')
+plt.imshow(img)
+
 
 plt.show()

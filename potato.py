@@ -124,6 +124,21 @@ y = 5
 z = 5
 plt.plot(x, y, z, 'bo')
 
+# Get rid of colored axes planes
+# First remove fill
+ax.xaxis.pane.fill = False
+ax.yaxis.pane.fill = False
+ax.zaxis.pane.fill = False
+
+# Now set color to white (or whatever is "invisible")
+ax.xaxis.pane.set_edgecolor('grey')
+ax.yaxis.pane.set_edgecolor('grey')
+ax.zaxis.pane.set_edgecolor('grey')
+
+
+# Bonus: To get rid of the grid as well:
+ax.grid(False)
+
 
 plt.show()
 

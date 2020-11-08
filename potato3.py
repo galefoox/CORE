@@ -9,6 +9,8 @@ import time
 from mpl_toolkits.mplot3d import axes3d
 from itertools import product, combinations
 
+
+# Setting black background
 plt.style.use('dark_background')
 
 
@@ -92,6 +94,21 @@ ax.set_zlim3d([-5.0, 5.0])
 ax.set_zlabel('Z')
 
 ax.set_title('Asteroid or Potato?')
+# =====================================DESIGN====================================
+# Get rid of colored axes planes
+# First remove fill
+ax.xaxis.pane.fill = False
+ax.yaxis.pane.fill = False
+ax.zaxis.pane.fill = False
+
+# Now set color to grey
+ax.xaxis.pane.set_edgecolor('grey')
+ax.yaxis.pane.set_edgecolor('grey')
+ax.zaxis.pane.set_edgecolor('grey')
+
+# To get rid of the grid as well:
+ax.grid(False)
+# =====================================DESIGN====================================
 
 
 xs = [data[i][0] for i in range(len(data))]
@@ -101,11 +118,11 @@ zs = [data[i][2] for i in range(len(data))]
 
 # THIS SCATTER PRINTS BLACK AND GREY DOTS
 # visualization purposes: dramatic effect
-# ax.scatter(xs, ys, zs, marker='.', color="black")
-# ax.scatter(xs, ys, zs, marker='.', color='#6D6D64')
+ax.scatter(xs, ys, zs, marker='.', color="black")
+ax.scatter(xs, ys, zs, marker='.', color='#6D6D64')
 
 # THIS SCATTER PRINTS COLOR CODED DOTS (YELLOW FOR FARTHEST AWAY FROM THE CENTER)
-ax.scatter(xs, ys, zs, c=np.linalg.norm([xs, ys, zs], axis=0))
+#ax.scatter(xs, ys, zs, c=np.linalg.norm([xs, ys, zs], axis=0))
 
 # draw cube
 # formula in email (-a,b,c) ...
@@ -121,6 +138,6 @@ ax.scatter(xs, ys, zs, c=np.linalg.norm([xs, ys, zs], axis=0))
 x = 5
 y = 5
 z = 5
-plt.plot(x, y, z, 'bo')
+#plt.plot(x, y, z, 'bo')
 
 plt.show()

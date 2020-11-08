@@ -7,6 +7,9 @@ import matplotlib.animation as animation
 import time
 from mpl_toolkits.mplot3d import axes3d
 from itertools import product, combinations
+# for read image #
+import matplotlib.image as mpimg
+
 
 fig = plt.figure()
 ax = p3.Axes3D(fig)
@@ -21,11 +24,17 @@ ax.set_ylabel('Y')
 
 ax.set_zlim3d([-5.0, 5.0])
 ax.set_zlabel('Z')
+
+# Add image as a background #
+#img = mpimg.imread('https://i.imgur.com/XR1J92C.png')
+# plt.imshow(img)
+
+
 # ===========================================================================================
 # create the parametric curve
-R = 1  # radius of sphere
-cx = 0.5  # center of sphere
-cy = 0.5
+R = 5  # radius of sphere
+cx = 0  # center of sphere
+cy = 3.5
 cz = 0
 
 # TODO LATER: move spaceship up a bit higher so its not caught in weaving of two drones -> start at higher point and then move in a straight line down and then split and do the arcs
@@ -47,51 +56,38 @@ t = np.arange(0, 0.5 * 3.14159, 0.5 * 3.14159 /
 # functions of a number of independent variables, known as "parameters.
 
 # TODO: SAME THING FOR X2, Y2, Z2 - this is just for one drone
-x1 = cx + R*np.sin(t)
+x1 = cx + R*np.sin(t)  # an array of points dependent on time
 y1 = [cy] * 100  # array[100] of cy
 z1 = cz + R*np.cos(t)
 
-x2 = cx + R*np.sin(t)
+x2 = cx - R*np.sin(t)
 y2 = [cy] * 100
 z2 = cz + R*np.cos(t)
 
 
-point, = ax.plot([x1[0]], [y1[0]], [z1[0]], 'ro')
-line, = ax.plot(x1, y1, z1, label='parametric curve')
+point1, = ax.plot([x1[0]], [y1[0]], [z1[0]], 'ro')
+line1, = ax.plot(x1, y1, z1, label='parametric curve')
 
-point, = ax.plot([x2[0]], [y2[0]], [z2[0]], 'bo')
-line, = ax.plot(x2, y2, z2, label='parametric curve')
+point2, = ax.plot([x2[0]], [y2[0]], [z2[0]], 'bo')
+line2, = ax.plot(x2, y2, z2, label='parametric curve')
 
 
 def update_point(n, x, y, z, point):
-    point.set_data(np.array([x1[n], y1[n]]))
-    point.set_3d_properties(z1[n], 'z')
+    point1.set_data(np.array([x1[n], y1[n]]))
+    point1.set_3d_properties(z1[n], 'z')
 
-    point.set_data(np.array([x2[n], y2[n]]))
-    point.set_3d_properties(z2[n], 'z')
+    point2.set_data(np.array([x2[n], y2[n]]))
+    point2.set_3d_properties(z2[n], 'z')
 
-    return point
+    return (point1, point2)
 
 
-ani = animation.FuncAnimation(fig, update_point, 99, fargs=(x1, y1, z1, point))
-ani = animation.FuncAnimation(fig, update_point, 99, fargs=(x2, y2, z2, point))
+ani1 = animation.FuncAnimation(
+    fig, update_point, 99, fargs=(x1, y1, z1, point1))
+ani2 = animation.FuncAnimation(
+    fig, update_point, 99, fargs=(x2, y2, z2, point2))
 # ========================================================================================
-# =========================/////////////////////////////////////////================================
-# q = [[5.00, 4.91, -0.27, -4.07, -0.65, -1.95],
-#      [5.00, 0.71,  4.05, 5.66, -4.49,  -5.46], [5.00, 5.14, 2.80, 1.75, 6.24, 4.0267]]
-# v = [[0.0068, 0.024, -0.014, -0.013, -0.0068, -0.04], [0.012,
-#                                                        0.056, -0.022, 0.016,  0.0045, 0.039],
-#      [-0.0045,  0.031,  0.077, 0.0016, -0.015, -0.00012]]
-
-# x = np.array(q[0])
-# y = np.array(q[1])
-# z = np.array(q[2])
-# s = np.array(v[0])
-# u = np.array(v[1])
-# w = np.array(v[2])
-
-# point, = ax.plot(x, y, z, '*')
-
+# =========================/////////////////////////////////////////======================
 
 # def update_points(t, x, y, z, points):
 
@@ -111,6 +107,7 @@ ani = animation.FuncAnimation(fig, update_point, 99, fargs=(x2, y2, z2, point))
 # ani = animation.FuncAnimation(
 #     fig, update_points, frames=30, fargs=(x, y, z, point))
 # =========================/////////////////////////////////////////================================
+# ax.imshow(img)
 plt.show()
 
 # - close file

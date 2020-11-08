@@ -3,6 +3,7 @@ import numpy as np
 import mpl_toolkits.mplot3d.axes3d as p3
 from matplotlib import animation
 
+
 fig = plt.figure()
 ax = p3.Axes3D(fig)
 
@@ -34,5 +35,7 @@ def update_point(n, x, y, z, point):
 
 
 ani = animation.FuncAnimation(fig, update_point, 99, fargs=(x, y, z, point))
+img = mpimg.imread('https://i.imgur.com/XR1J92C.png')
+plt.imshow(img)
 
 plt.show()
